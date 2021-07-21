@@ -1,5 +1,7 @@
 # FreezeFrame - .NET Global Tool
 
+![Freeze Frame logo](./logo.png)
+
 This is a .NET global tool designed to grab the first frame of all GIFs in a given directory. Grabbing the first frame is useful for creating a splash image for websites that don't auto-play animated GIFs. This was also an attempt to learn some F# and build something I would use.
 
 ## Getting Started
@@ -23,6 +25,10 @@ Copyright (C) 2021 FreezeFrame
   --version          Display version information.
 
 ```
+
+## Licenses For ImageSharp
+
+- This tool uses [ImageSharp](https://sixlabors.com/products/imagesharp/), which requires a license for commercial use.
 
 ## License
 
