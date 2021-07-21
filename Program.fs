@@ -39,10 +39,9 @@ let processFiles options : Unit =
                     let filename = Path.GetFileNameWithoutExtension path
                     let target = $"%s{filename}.png"
                     AnsiConsole.MarkupLine $"[green]{CheckMark} Processing %s{Path.GetFileName path} -> %s{target}[/]"
-                    AnsiConsole.MarkupLine $"[yellow]{Warning} Image {Path.GetFileName path} was not a valid ImageFrame, skipping[/]"
                     File.WriteAllBytes(target, bytes)
                 | None ->
-                    ()
+                    AnsiConsole.MarkupLine $"[yellow]{Warning} Image {Path.GetFileName path} was not a valid ImageFrame, skipping[/]"
 
         progress.Start($"processing {files.Length} GIFs", processEachFile)
         AnsiConsole.MarkupLine($"[green]{GlowingStar} { files.Length} GIFs processed in {options.directory}[/]")
