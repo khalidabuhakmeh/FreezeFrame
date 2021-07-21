@@ -5,6 +5,7 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackAsTool>true</PackAsTool>
         <PackageId>FreezeFrame</PackageId>
+        <PackageIconUrl>https://raw.githubusercontent.com/khalidabuhakmeh/FreezeFrame/main/logo.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/khalidabuhakmeh/FreezeFrame</PackageProjectUrl>
         <PackageTags>F#,images, tool</PackageTags>
