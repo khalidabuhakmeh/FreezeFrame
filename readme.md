@@ -28,7 +28,7 @@ Copyright (C) 2021 FreezeFrame
 
 ## Licenses For ImageSharp
 
-- This tool uses [ImageSharp](https://sixlabors.com/products/imagesharp/), which requires a license for commercial use.
+- This tool uses [ImageSharp](https://sixlabors.com/products/imagesharp/), which requires a license for commercial support.
 
 ## License
 
