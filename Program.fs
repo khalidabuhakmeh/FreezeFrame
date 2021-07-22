@@ -9,14 +9,15 @@ type options = {
     [<Option('r', "recursive", HelpText = "Recursively scan directories from root directory", Default=false)>] recursive: bool    
 }
 
-let getFrameFromGif (path: string) : byte[] =
+let getFrameFromGif (path: string) =
     use gif = Image.Load(path)
     use image = new Image<Rgba32>(gif.Width, gif.Height)
-    image.Frames.AddFrame(gif.Frames.RootFrame)|> ignore;
-    image.Frames.RemoveFrame(0);
-    use ms = new MemoryStream()    
+    image.Frames.AddFrame(gif.Frames.RootFrame)|> ignore
+    image.Frames.RemoveFrame(0)
+    let ms = new MemoryStream()
     image.SaveAsPng(ms)
-    ms.ToArray()
+    ms.Seek(0L, SeekOrigin.Begin) |> ignore
+    ms
     
 let processFiles options : Unit =
     match Directory.Exists options.directory with
@@ -26,11 +27,12 @@ let processFiles options : Unit =
         let progress = AnsiConsole.Status()  
         let processEachFile (ctx:StatusContext) =
             for path in files do
-                let bytes = getFrameFromGif path
                 let filename = Path.GetFileNameWithoutExtension path
                 let target = $"%s{filename}.png"            
+                use destinationStream = File.Create target
+                use frameStream = getFrameFromGif path
                 AnsiConsole.MarkupLine $"[green]:check_mark: Processing %s{Path.GetFileName path} -> %s{target}[/]"            
-                File.WriteAllBytes(target, bytes)
+                frameStream.CopyTo(destinationStream)
         progress.Start($"processing {files.Length} GIFs", processEachFile)
         AnsiConsole.MarkupLine($"[green]:glowing_star: { files.Length} GIFs processed in {options.directory}[/]")
     | false ->
