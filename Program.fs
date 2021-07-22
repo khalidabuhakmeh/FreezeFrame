@@ -10,13 +10,10 @@ type options = {
 }
 
 let getFrameFromGif (path: string) : byte[] =
-    let gif = Image.Load(path)
-    let frame = gif.Frames.RootFrame
-    use image = new Image<Rgba32>(frame.Width, frame.Height)
-    let source = frame :?> ImageFrame<Rgba32>
-    for y in 0..frame.Height-1 do
-        for x in 0..frame.Width-1 do
-            image.[x,y] <- source.[x,y]
+    use gif = Image.Load(path)
+    use image = new Image<Rgba32>(gif.Width, gif.Height)
+    image.Frames.AddFrame(gif.Frames.RootFrame)|> ignore;
+    image.Frames.RemoveFrame(0);
     use ms = new MemoryStream()    
     image.SaveAsPng(ms)
     ms.ToArray()
